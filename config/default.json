@@ -1,0 +1,17 @@
+{
+  "openweathermap": {
+    "api_key": "243c31689b2c152e7f2551a68b91d8ce"
+  },
+  "cities": [
+    "Jerusalem",
+    "New York",
+    "Dubai",
+    "Lisbon",
+    "Oslo",
+    "Paris",
+    "Berlin",
+    "Athens",
+    "Seoul",
+    "Singapore"
+  ]
+}
