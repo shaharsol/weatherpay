@@ -8,14 +8,6 @@ const { extractDate } = require('./helpers');
 
 const extractForecasts = (responses) => responses.map((response) => response.data);
 
-// const addCityNameToForecasts = (forecasts) => {
-//   const result = forecasts.map((forecast) => forecast.list.map((item) => {
-//     item.city = forecast.city.name;
-//     return item;
-//   }));
-//   return result;
-// };
-
 const addCityNameToForecasts = (forecasts) => forecasts.map((forecast) => forecast.list.map((item) => {
   item.city = forecast.city.name;
   return item;
