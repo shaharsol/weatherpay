@@ -1,4 +1,4 @@
-const data = [];
+const data = {};
 
 const newDate = () => {
   return {
@@ -43,9 +43,12 @@ const checkRainy = (date,city,weatherType) => {
 
 const getData = () => data;
 
-const toCsv = () => data.map(date => {
+const toCsv = () => Object.keys(data).map(date => {
   return {
-    date
+    date: date,
+    hottest_city: data[date].hottest_city.name,
+    coldest_city: data[date].coldest_city.name,
+    rainy_cities: data[date].rainy_cities
   }
 })
 

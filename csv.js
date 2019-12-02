@@ -1,7 +1,7 @@
-const {toCsv} = require("./model")
+const config = require("config");
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
-  path: 'out.csv',
+  path: config.get("csv.path"),
   header: [
     {id: 'date', title: 'Date'},
     {id: 'hottest_city', title: 'Hottest City'},
@@ -10,6 +10,10 @@ const csvWriter = createCsvWriter({
   ]
 });
 
-const write = async () => {
-  await csvWriter.writeRecords()
+const write = async (data) => {
+  await csvWriter.writeRecords(data)
 }
+
+module.exports = {
+  write
+};
