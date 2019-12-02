@@ -1,5 +1,9 @@
 # weatherpay
 
+## run tests
+
+`npm run test`
+
 ## run the project
 
 Simply `node index.js`.
