@@ -21,21 +21,15 @@ const addCityNameToForecasts = (forecasts) => forecasts.map((forecast) => foreca
   return item;
 }));
 
-const flattenForecasts = (forecasts) => {
-  const reduced = forecasts.reduce((acc, item) => acc.concat(item), []);
-  return reduced;
-};
+const flattenForecasts = (forecasts) => forecasts.reduce((acc, item) => acc.concat(item), []);
 
-const reduceForecasts = (forecasts) => {
-  const reduced = forecasts.reduce((acc, item) => {
-    const date = extractDate(item.dt);
-    acc = checkHotter(acc, date, item.city, item.main.temp_max);
-    acc = checkColder(acc, date, item.city, item.main.temp_min);
-    acc = checkRainy(acc, date, item.city, item.weather[0].main);
-    return acc;
-  }, {});
-  return reduced;
-};
+const reduceForecasts = (forecasts) => forecasts.reduce((acc, item) => {
+  const date = extractDate(item.dt);
+  acc = checkHotter(acc, date, item.city, item.main.temp_max);
+  acc = checkColder(acc, date, item.city, item.main.temp_min);
+  acc = checkRainy(acc, date, item.city, item.weather[0].main);
+  return acc;
+}, {});
 
 module.exports = {
   extractForecasts,
