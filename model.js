@@ -1,5 +1,3 @@
-// const data = {};
-
 const newDate = () => ({
   hottest_city: {
     name: null,
