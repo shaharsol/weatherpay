@@ -1,6 +1,7 @@
 const config = require('config');
 const { getCityForecast } = require('./weather');
 const {
+  extractForecasts,
   addCityNameToForecasts,
   flattenForecasts,
   reduceForecasts,
@@ -11,8 +12,8 @@ const { write } = require('./csv');
 
 const run = async () => {
   try {
-    // await Promise.all(config.get('cities').map((city) => processCity(city)));
-    const forecasts = await Promise.all(config.get('cities').map((city) => getCityForecast(city)));
+    const responses = await Promise.all(config.get('cities').map((city) => getCityForecast(city)));
+    const forecasts = extractForecasts(responses);
     const cityNamedForecasts = addCityNameToForecasts(forecasts);
     const flattenedForecasts = flattenForecasts(cityNamedForecasts);
     const reducedForecasts = reduceForecasts(flattenedForecasts);
