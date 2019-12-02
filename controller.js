@@ -1,5 +1,5 @@
 const {getCityForecast} = require("./weather");
-const {processCityForecast} = require("./model");
+const {processCityForecast} = require("./reducer");
 
 const processCity = async (city) => {
   const response = await getCityForecast(city);

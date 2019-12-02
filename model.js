@@ -1,8 +1,6 @@
-const {extractDate} = require("./helpers");
-
 const data = [];
 
-const newLine = () => {
+const newDate = () => {
   return {
     hottest_city: {
       name: null,
@@ -16,41 +14,45 @@ const newLine = () => {
   };
 }
 
-const checkColder = (date,city,item) => {
-  if(data[date].coldest_city.temp > item.main.temp_min){
-    data[date].coldest_city.temp = item.main.temp_min;
+const ensureDate = date => {
+  data[date] = data[date] || newDate();
+}
+
+const checkColder = (date,city,temp) => {
+  ensureDate(date);
+  if(data[date].coldest_city.temp > temp){
+    data[date].coldest_city.temp = temp;
     data[date].coldest_city.name = city;
   }
 }
 
-const checkHotter = (date,city,item) => {
-  if(data[date].hottest_city.temp < item.main.temp_max){
-    data[date].hottest_city.temp = item.main.temp_max;
+const checkHotter = (date,city,temp) => {
+  ensureDate(date);
+  if(data[date].hottest_city.temp < temp){
+    data[date].hottest_city.temp = temp;
     data[date].hottest_city.name = city;
   }
 }
 
-const checkRainy = (date,city,item) => {
-  if(item.weather[0].main == "Rain" && !data[date].rainy_cities.includes(city)){
+const checkRainy = (date,city,weatherType) => {
+  ensureDate(date);
+  if(weatherType == "Rain" && !data[date].rainy_cities.includes(city)){
     data[date].rainy_cities.push(city);
   }
 }
 
-const processItem = (city, item) => {
-  const date = extractDate(item.dt);
-  data[date] = data[date] || newLine();
-  checkHotter(date,city,item);
-  checkColder(date,city,item);
-  checkRainy(date,city,item);
-}
-
-const processCityForecast = (city, forecast) => {
-  forecast.list.forEach(item => processItem(city, item));
-}
-
 const getData = () => data;
 
+const toCsv = () => data.map(date => {
+  return {
+    date
+  }
+})
+
 module.exports = {
-  processCityForecast,
-  getData
+  checkHotter,
+  checkColder,
+  checkRainy,
+  getData,
+  toCsv
 }

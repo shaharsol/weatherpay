@@ -1,6 +1,7 @@
 {
   "openweathermap": {
-    "api_key": "243c31689b2c152e7f2551a68b91d8ce"
+    "api_key": "243c31689b2c152e7f2551a68b91d8ce",
+    "units": "metric"
   },
   "cities": [
     "Jerusalem",
