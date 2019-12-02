@@ -6,17 +6,6 @@ const {
 
 const { extractDate } = require('./helpers');
 
-const processItem = (city, item) => {
-  const date = extractDate(item.dt);
-  checkHotter(date, city, item.main.temp_max);
-  checkColder(date, city, item.main.temp_min);
-  checkRainy(date, city, item.weather[0].main);
-};
-
-const processCityForecast = (city, forecast) => {
-  forecast.list.forEach((item) => processItem(city, item));
-};
-
 const addCityNameToForecasts = (forecasts) => {
   const result = forecasts.map((forecast) => forecast.list.map((item) => {
     const newItem = item;
@@ -43,10 +32,8 @@ const reduceForecasts = (forecasts) => {
   return reduced;
 };
 
-
 module.exports = {
   addCityNameToForecasts,
   flattenForecasts,
   reduceForecasts,
-  processCityForecast,
 };
