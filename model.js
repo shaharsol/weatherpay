@@ -1,4 +1,4 @@
-const data = {};
+// const data = {};
 
 const newDate = () => ({
   hottest_city: {
@@ -12,36 +12,41 @@ const newDate = () => ({
   rainy_cities: [],
 });
 
-const ensureDate = (date) => {
-  data[date] = data[date] || newDate();
+const ensureDate = (data, date) => {
+  const newData = data;
+  newData[date] = newData[date] || newDate();
+  return newData;
 };
 
-const checkColder = (date, city, temp) => {
-  ensureDate(date);
-  if (data[date].coldest_city.temp > temp) {
-    data[date].coldest_city.temp = temp;
-    data[date].coldest_city.name = city;
+const checkColder = (data, date, city, temp) => {
+  const newData = ensureDate(data, date);
+
+  if (newData[date].coldest_city.temp > temp) {
+    newData[date].coldest_city.temp = temp;
+    newData[date].coldest_city.name = city;
   }
+  return newData;
 };
 
-const checkHotter = (date, city, temp) => {
-  ensureDate(date);
-  if (data[date].hottest_city.temp < temp) {
-    data[date].hottest_city.temp = temp;
-    data[date].hottest_city.name = city;
+const checkHotter = (data, date, city, temp) => {
+  const newData = ensureDate(data, date);
+  if (newData[date].hottest_city.temp < temp) {
+    newData[date].hottest_city.temp = temp;
+    newData[date].hottest_city.name = city;
   }
+  return newData;
 };
 
-const checkRainy = (date, city, weatherType) => {
-  ensureDate(date);
-  if (weatherType === 'Rain' && !data[date].rainy_cities.includes(city)) {
-    data[date].rainy_cities.push(city);
+const checkRainy = (data, date, city, weatherType) => {
+  const newData = ensureDate(data, date);
+  if (weatherType === 'Rain' && !newData[date].rainy_cities.includes(city)) {
+    newData[date].rainy_cities.push(city);
   }
+  return newData;
 };
 
-const getData = () => data;
 
-const toCsv = () => Object.keys(data).map((date) => ({
+const toCsv = (data) => Object.keys(data).map((date) => ({
   date,
   hottest_city: data[date].hottest_city.name,
   coldest_city: data[date].coldest_city.name,
@@ -52,6 +57,5 @@ module.exports = {
   checkHotter,
   checkColder,
   checkRainy,
-  getData,
   toCsv,
 };

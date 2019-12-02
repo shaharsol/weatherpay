@@ -9,7 +9,7 @@ const getCityForecast = async (city) => {
       APPID: config.get('openweathermap.api_key'),
     },
   });
-  return response;
+  return response.data;
 };
 
 module.exports = {
